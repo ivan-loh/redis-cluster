@@ -1,0 +1,62 @@
+version: '3.8'
+
+x-common:
+  &common
+  image: "redis:alpine"
+  command: [ "redis-server", "/redis.conf" ]
+  network_mode: "host"
+  deploy:
+    resources:
+      limits:
+        cpus: "0.1"
+        memory: 8M
+
+x-node-a:
+  &node-a
+  deploy:
+    resources:
+      limits:
+        cpus: "0.1"
+        memory: 16M
+
+x-node-b:
+  &node-b
+  deploy:
+    resources:
+      limits:
+        cpus: "0.1"
+        memory: 8M
+
+services:
+
+  node-0:
+    << : *common
+    volumes:
+      - "./conf/0.conf:/redis.conf"
+
+  node-1:
+    << : *common
+    volumes:
+      - "./conf/1.conf:/redis.conf"
+
+  node-2:
+    << : *common
+    volumes:
+      - "./conf/2.conf:/redis.conf"
+
+  node-3:
+    << : *common
+    volumes:
+      - "./conf/3.conf:/redis.conf"
+
+  node-4:
+    << : *common
+    volumes:
+      - "./conf/4.conf:/redis.conf"
+
+  node-5:
+    << : *common
+    volumes:
+      - "./conf/5.conf:/redis.conf"
+
+
